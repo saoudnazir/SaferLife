@@ -8,9 +8,11 @@ const HOST = "127.0.0.1";
 
 // App
 const app = express();
-app.get("/", (req, res) => {
-  res.send("Hello world\n");
-});
 
+app.get("/", (req, res) => {
+  console.log("Request Received");
+  res.send("Hello world\n");
+  
+}); 
 app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+console.log(`Running on http://${HOST}:${PORT} at `.Date.now = function() { return new Date().getTime(););

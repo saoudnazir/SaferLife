@@ -34,5 +34,7 @@ services:
   nodejs:
     build: ./NodeApp
     container_name: NodeApp
+    ports:
+      - "8080:8080"
 volumes:
   db:
