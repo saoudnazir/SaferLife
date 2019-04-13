@@ -3,11 +3,15 @@ import cv2
 import face_recognition
 import array as arr
 import json
+from datetime import datetime
+from datetime import date
+from general import General
 
 
 class Recognition():
     known_faces_encodings = []
     known_names = []
+    activity_log = []
 
     def __init__(self, known_faces_encodings, known_names):
         self.known_faces_encodings = known_faces_encodings
@@ -15,6 +19,8 @@ class Recognition():
 
     def startFaceRecognition(self):
         print("Starting Preview")
+        logsFile = open(f"{date.today()}.txt", "w")
+        frameCount = 1  # Frame Count
         video_cap = cv2.VideoCapture(0)
         face_locations = []
         face_names = []
@@ -54,8 +60,23 @@ class Recognition():
                     font = cv2.FONT_HERSHEY_DUPLEX
                     cv2.putText(frame, name, (left + 6, bottom - 6),
                                 font, 1.0, (255, 255, 255), 1)
+                    if frameCount < 100:
+                        dateTime = datetime.now()
+                        timestr = dateTime.strftime("%H:%M")
+                        datestr = dateTime.strftime("%d %b,%y")
+                        self.activity_log.append(
+                            f"{name} is seen on {datestr} at {timestr} \n")
+                    frameCount += 1
             cv2.imshow('Video', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
+                general = General()
+                self.activity_log = general.sortActivityLog(self.activity_log)
+                logsFile.writelines(self.activity_log)
+                logsFile.close()
+                dir = dirname(__file__)
+                path = join(dir, f"{date.today()}.txt")
+                if general.isFileEmpty(path) is False:
+                    print("Activity Log has been generated.")
                 break
         video_cap.release()
         cv2.destroyAllWindows()

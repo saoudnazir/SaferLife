@@ -1,5 +1,6 @@
 from LoadDB import LoadDB
 from recognition import Recognition
+from general import General
 
 
 class Menu:
@@ -27,6 +28,7 @@ class Menu:
 
 menu = Menu()
 methods = {
+    0: {"name": "Exit"},
     1: {"function": menu.offlineMode, "name": "Offline Mode"},
     2: {"function": menu.onlineMode, "name": "Online Mode"},
     3: {"function": menu.startPreview, "name": "Start Preview"}
@@ -36,8 +38,9 @@ methods = {
 for keys, values in methods.items():
     print(f"Press {keys} for {values['name']}")
 
+
 while True:
     choice = int(input(f"Enter a number between 1 and {len(methods)}: "))
-    if(choice is 4):
+    if(choice is 0):
         break
     methods[choice]['function']()
