@@ -17,6 +17,36 @@ class Recognition():
         self.known_faces_encodings = known_faces_encodings
         self.known_names = known_names
 
+    def encodeImage(self, name, imgPath):
+        normalImage = face_recognition.load_image_file(imgPath)
+        encodedImage = face_recognition.face_encodings(normalImage)[0]
+        return encodedImage
+
+    def generateLocalDB(self, names, encodedImgs):
+        dir = dirname(__file__)
+        path = join(dir, "db.json")
+        count = 0
+        jsonData = {}
+        data = []
+        for name, img in zip(names, encodedImgs):
+            data[name] = []
+            for value in img:
+                data[f"{name}"].append(img)
+            jsonData.append(data)
+            count += 1
+        print(jsonData)
+
+        '''with open(path) as json_file:
+            data = json.load(json_file)
+            data[f"{name}"] = []
+            count = 0
+            for value in encodedImage:
+                data[f"{name}"].append(value)
+        json_file.close()
+        with open(path, 'w') as json_file:
+            json_file.write(str(json.dumps(data)))
+        json_file.close()'''
+
     def startFaceRecognition(self):
         print("Starting Preview")
         logsFile = open(f"{date.today()}.txt", "w")
