@@ -8,7 +8,7 @@ from datetime import date
 from general import General
 
 
-class Recognition():
+class Recognition:
     known_faces_encodings = []
     known_names = []
     activity_log = []
@@ -22,38 +22,17 @@ class Recognition():
         encodedImage = face_recognition.face_encodings(normalImage)[0]
         return encodedImage
 
-    '''
-    def generateLocalDB(self, names, encodedImgs):
-        dir = dirname(__file__)
-        path = join(dir, "db.json")
-        count = 0
-        jsonData = {}
-        data = []
-        for name, img in zip(names, encodedImgs):
-            data[name] = []
-            for value in img:
-                data[f"{name}"].append(img)
-            jsonData.append(data)
-            count += 1
-        print(jsonData)
-
-        with open(path) as json_file:
-            data = json.load(json_file)
-            data[f"{name}"] = []
-            count = 0
-            for value in encodedImage:
-                data[f"{name}"].append(value)
-        json_file.close()
-        with open(path, 'w') as json_file:
-            json_file.write(str(json.dumps(data)))
-        json_file.close()'''
-
+    
+    
     def startFaceRecognition(self):
         print("Starting Preview")
         logsFile = open(f"{date.today()}.txt", "w")
         frameCount = 1  # Frame Count
         video_cap = cv2.VideoCapture(0)
-        out = cv2.VideoWriter('output.avi', -1, 20.0, (640,480))
+        # Define the codec and create VideoWriter object 
+        fourcc = cv2.VideoWriter_fourcc(*'XVID') 
+        out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480)) 
+
         face_locations = []
         face_names = []
         user_face = []
@@ -100,6 +79,7 @@ class Recognition():
                             f"{name} is seen on {datestr} at {timestr} \n")
                     frameCount += 1
             cv2.imshow('Video', frame)
+            out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 general = General()
                 self.activity_log = general.sortActivityLog(self.activity_log)
@@ -111,4 +91,5 @@ class Recognition():
                     print("Activity Log has been generated.")
                 break
         video_cap.release()
+        out.release()
         cv2.destroyAllWindows()
