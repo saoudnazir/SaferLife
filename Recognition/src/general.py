@@ -30,5 +30,4 @@ class General:
             json_file.write(str(json.dumps(data)))
         json_file.close()
         print("New DB has generated")
-
-    def 
+    
