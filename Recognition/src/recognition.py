@@ -22,6 +22,7 @@ class Recognition():
         encodedImage = face_recognition.face_encodings(normalImage)[0]
         return encodedImage
 
+    '''
     def generateLocalDB(self, names, encodedImgs):
         dir = dirname(__file__)
         path = join(dir, "db.json")
@@ -36,7 +37,7 @@ class Recognition():
             count += 1
         print(jsonData)
 
-        '''with open(path) as json_file:
+        with open(path) as json_file:
             data = json.load(json_file)
             data[f"{name}"] = []
             count = 0
@@ -52,6 +53,7 @@ class Recognition():
         logsFile = open(f"{date.today()}.txt", "w")
         frameCount = 1  # Frame Count
         video_cap = cv2.VideoCapture(0)
+        out = cv2.VideoWriter('output.avi', -1, 20.0, (640,480))
         face_locations = []
         face_names = []
         user_face = []
