@@ -1,6 +1,8 @@
 import os
 from os.path import dirname, join
 import json
+import face_recognition
+import numpy as np
 
 
 class General:
@@ -30,4 +32,22 @@ class General:
             json_file.write(str(json.dumps(data)))
         json_file.close()
         print("New DB has generated")
-    
+
+    def encodeImages(self,imgPaths):
+        encodedImagesArr = []
+        if imgPaths:
+            for img in imgPaths:
+                loadedImg = face_recognition.load_image_file(img)
+                encodedImagesArr.append(face_recognition.face_encodings(loadedImg)[0])
+        count = 0
+        encodedImgArrStr = []
+        for encodedImg in encodedImagesArr:
+            if encodedImg.all():
+                encodedImgArrStr.append([])
+            for eachArr in encodedImg:
+                encodedImgArrStr[count].append(eachArr)
+            
+            count = count+1
+        
+
+        return encodedImgArrStr
