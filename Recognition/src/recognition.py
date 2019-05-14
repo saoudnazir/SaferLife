@@ -12,6 +12,7 @@ class Recognition:
     known_faces_encodings = []
     known_names = []
     activity_log = []
+    frameArr = []
 
     def __init__(self, known_faces_encodings, known_names):
         self.known_faces_encodings = known_faces_encodings
@@ -38,6 +39,7 @@ class Recognition:
                 
                 face_locations = face_recognition.face_locations(
                     rgb_small_frame)
+                print(face_locations)
                 user_face = face_recognition.face_encodings(
                     rgb_small_frame, face_locations)
                 face_names = []
@@ -65,13 +67,14 @@ class Recognition:
                     font = cv2.FONT_HERSHEY_DUPLEX
                     cv2.putText(frame, name, (left + 6, bottom - 6),
                                 font, 1.0, (255, 255, 255), 1)
+                    dateTime = datetime.now()
+                    timestr = dateTime.strftime("%H:%M")
+                    datestr = dateTime.strftime("%d %b,%y")
                     if frameCount < 100:
-                        dateTime = datetime.now()
-                        timestr = dateTime.strftime("%H:%M")
-                        datestr = dateTime.strftime("%d %b,%y")
                         self.activity_log.append(
                             f"{name} is seen on {datestr} at {timestr} \n")
                     frameCount += 1
+                    self.frameArr.append(frame)
             cv2.imshow('Video', frame)
             out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
