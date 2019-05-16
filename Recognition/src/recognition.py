@@ -1,11 +1,11 @@
 from os.path import dirname, join
-import cv2
-import face_recognition
 import array as arr
 import json
 from datetime import datetime
 from datetime import date
 from general import General
+import cv2
+import face_recognition
 
 
 class Recognition:
@@ -39,7 +39,6 @@ class Recognition:
                 
                 face_locations = face_recognition.face_locations(
                     rgb_small_frame)
-                print(face_locations)
                 user_face = face_recognition.face_encodings(
                     rgb_small_frame, face_locations)
                 face_names = []
