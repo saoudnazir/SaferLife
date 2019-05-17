@@ -38,8 +38,9 @@
             <img src="//:0" alt="" id="camera--output">
             <button id="camera--trigger">Take a picture</button>
         </main>-->
-        <iframe src="http://10.1.6.161:8000/index/" style="width:600px; overflow:hidden; z-index: -1; height: 800px; border: 1px solid black; position: fixed;top: 0;right: 0;">
-        </iframe>
+        <!--<iframe src="http://127.0.0.1:8000/video_feed/" style="width:320px; overflow:hidden; z-index: -1; height: 240px; border: 1px solid black; position: fixed;">
+        </iframe>-->
+        <img src="http://127.0.0.1:8000/video_feed/" style="width:100%; height:100%;"/>
         <!-- Reference to your JavaScript file -->
         <script src="script.js"></script>
     </body>

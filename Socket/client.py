@@ -33,3 +33,4 @@ while True:
     img_counter += 1
 
 cam.release()
+client_socket.close()

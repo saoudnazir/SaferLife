@@ -28,6 +28,7 @@ class video:
         for f in video.frames:
             out.write(f)
         out.release()
+        
     def printFrames(self):
         print(video.frames)
 
@@ -39,11 +40,6 @@ def stream():
     faces , names = LoadDB.loadofflineDB()
     r = Recognition(faces,names)
     v = video()
-    
- 
-    
-    
-    
     HOST = ''
     PORT = 8485
 
@@ -56,12 +52,11 @@ def stream():
     print('Socket now listening')
 
     conn, addr = s.accept()
-
     data = b""
     payload_size = struct.calcsize(">L")
     print("payload_size: {}".format(payload_size))
     while True:
-
+        
         while len(data) < payload_size:
             print("Recv: {}".format(len(data)))
             data += conn.recv(4096)
@@ -86,9 +81,7 @@ def stream():
             with open(f"{date.today()}.txt", "a") as f:
                 f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")
                 f.close()
-            if not data:
-                print("Breaking Loop")
-                break
+            v.appendframes(frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + open('outgoing.jpg', 'rb').read() + b'\r\n')
     conn.close()
@@ -97,6 +90,6 @@ def stream():
 def video_feed(request):
     return StreamingHttpResponse(stream(), content_type='multipart/x-mixed-replace; boundary=frame')
 
-def test(request):
-    v = video()
-    v.printFrames()
+def createDatabase(request):
+    g = General()
+    g.generateLocalDB()
