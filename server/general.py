@@ -17,14 +17,17 @@ class General:
     def isFileEmpty(self, path):
         return os.stat(path).st_size == 0
 
-    def generateLocalDB(self, names, encodedImgs):
+    def generateLocalDB(self, names, encodedImgs,ids):
         dir = dirname(__file__)
-        path = join(dir, "db.json")
+        path = join(dir, "dbtest.json")
         count = 0
         jsonData = {}
         data = {}
-        for name, img in zip(names, encodedImgs):
-            data[f"{name}"] = img
+        for name, img, id in zip(names, encodedImgs,ids):
+            data[f"{id}"] = {"name":name,"face":img}
+
+
+            #data[f"{name}"] = img
             jsonData.update(data)
             count += 1
         print(jsonData)

@@ -5,24 +5,25 @@ import json
 from general import General
 
 
-class Recognition():
+class Recognition:
     known_faces_encodings = []
     known_names = []
+    known_IDs = []
 
-    def __init__(self, known_faces_encodings, known_names):
+    def __init__(self, known_faces_encodings, known_names,known_IDs):
         self.known_faces_encodings = known_faces_encodings
         self.known_names = known_names
+        self.known_IDs = known_IDs
 
 
     def startFaceRecognition(self,frame):
         face_locations = []
         face_names = []
         user_face = []
+        user_ID = []
         nameStr = ""
+        idStr=""
         process = True
-        #while True:
-            #ret, frame = video_cap.read()
-            #small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
         rgb_small_frame = small_frame[:, :, ::-1]
         if process:
@@ -36,14 +37,17 @@ class Recognition():
                     self.known_faces_encodings, user)
 
                 name = "Unknown"
+                id = 0
                 if True in match:
                     first_match_index = match.index(True)
                     name = self.known_names[first_match_index]
+                    id = self.known_IDs[first_match_index]
                 face_names.append(name)
+                user_ID.append(id)
 
         process = not process
         if "Unknown" not in face_names:
-            for (top, right, bottom, left), name in zip(face_locations, face_names):
+            for (top, right, bottom, left), name, id in zip(face_locations, face_names,user_ID):
                 top *= 4
                 right *= 4
                 bottom *= 4
@@ -56,13 +60,6 @@ class Recognition():
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 1.0, (255, 255, 255), 1)
                 nameStr = name
-        #cv2.imshow('Video', frame)
-        '''    if cv2.waitKey(1) & 0xFF == ord('q'):
-                
-                dir = dirname(__file__)
-                path = join(dir, f"{date.today()}.txt")
-                if general.isFileEmpty(path) is False:
-                    print("Activity Log has been generated.")
-                break'''
+                idStr = id
         cv2.destroyAllWindows()
-        return frame, nameStr
+        return frame, nameStr, idStr

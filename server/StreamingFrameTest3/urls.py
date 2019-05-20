@@ -20,6 +20,5 @@ from MyApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.myIndex),
-    path('test/',views.test),
     path('video_feed/', views.video_feed, name="video-feed")
 ]

@@ -37,8 +37,8 @@ def myIndex(request):
     return HttpResponse(template.render({}, request))
 
 def stream():
-    faces , names = LoadDB.loadofflineDB()
-    r = Recognition(faces,names)
+    faces , names, ids = LoadDB.loadofflineDB()
+    r = Recognition(faces,names,ids)
     v = video()
     HOST = ''
     PORT = 8485
@@ -74,7 +74,8 @@ def stream():
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
             frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-            frame,name =  r.startFaceRecognition(frame)
+            frame,name,id =  r.startFaceRecognition(frame)
+            print(id)
             cv2.waitKey(1)
             cv2.imwrite('outgoing.jpg', frame)
             v.appendframes(frame)
@@ -89,7 +90,3 @@ def stream():
 
 def video_feed(request):
     return StreamingHttpResponse(stream(), content_type='multipart/x-mixed-replace; boundary=frame')
-
-def createDatabase(request):
-    g = General()
-    g.generateLocalDB()
