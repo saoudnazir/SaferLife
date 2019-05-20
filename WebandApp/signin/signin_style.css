@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+    background-image: url('../images/signin_background1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}
+/*From here is Sign In CSS */
+.signin_container{
+    max-width: 20%;
+    min-width: 300px;
+	border: 0.5px solid #666666;
+	padding: 0;
+	background-color: white;
+    box-shadow: 5px 10px 18px #595959;
+	border-radius: 5px;
+	margin-top: 100px;
+}
+
+.signin-title-container{
+	width: 100%;
+	padding-bottom:3px;
+	padding-top:3px;
+    background-color: rgba(0,0,0,0.5) !important;
+    display: flex;
+    flex-direction: rows;
+}
+
+#signin_title {
+	color: white;
+	padding-left: 5px;
+	font-size: 20px;
+    font-family: 'Courier New',Courier,Freemono,'Nimbus Mono L',monospace;
+    width: 50%;
+}
+
+.logo_container_signin{
+	width: 50%;
+	margin: auto;
+}
+
+.signin_form{
+	margin-top: 50px;
+	width: 100%;
+}
+.logo_container_signin img {
+	max-width: 100%;
+	margin-top: 5px;
+}
+.input_icon{
+    background-color:#33adff;
+    padding: 5px 15px 5px 5px;
+    border: 0.1px solid #bfbfbf;
+    border-right: 0;
+}
+.input_icon i{
+    font-size: 10px;
+}
+.userdetails_field{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+    margin: 20px 0 20px 0;
+}
+.userdetails_field input{
+    border-radius: 0px 7px 7px 0px;
+    border: 0.5px solid #bfbfbf;
+    border-left: 0;
+}
+#signin_button{
+	padding: 7px 15px 7px 15px;
+	background-color: #33adff;
+	border: 1px solid #33adff;
+	border-radius: px;
+	margin-bottom: 20px;
+	margin-top: 30px;
+	color: white;
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+#signin_button:hover{
+	background-color: #262626;
+}
+
+.wrong_user{
+	color: #ff0000;
+	height:50px;
+	width: 70%;
+	border: 2px solid #ff8080;
+	border-radius: 2px;
+	text-align:left;
+	margin-top: 10px;
+	background-color: #ffe6e6;	
+	margin-bottom: 30px;
+}
