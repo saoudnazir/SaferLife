@@ -19,6 +19,6 @@ from MyApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.myIndex),
+    path('sock/', views.MultiSocket),
     path('video_feed/', views.video_feed, name="video-feed")
 ]
