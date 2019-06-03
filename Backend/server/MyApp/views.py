@@ -105,7 +105,7 @@ def generateDB(request):
     message=""
     try:
         g = General()
-        url ="http://10.1.6.85/webandapp/newLocalDB.php"
+        url ="http://10.1.5.42/webandapp/newLocalDB.php"
         jsonURL = urllib.request.urlopen(url)
         data = json.loads(jsonURL.read().decode())
         id=[]
