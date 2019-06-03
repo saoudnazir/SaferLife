@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+    /*background-image: url('images/signin_background1.jpg');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    padding: 0;
+
+}
+iframe{
+  width: 800px;
+  height: 600px;
+}
+
+  #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    
+    z-index: -1;
+  }
+  .content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+  }
+  #camera, #camera--view, #camera--sensor, #camera--output{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  #camera--view, #camera--sensor, #camera--output{
+      transform: scaleX(-1);
+      filter: FlipH;
+  }
+  #camera--trigger{
+      width: 200px;
+      background-color: black;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      border: none;
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+      position: fixed;
+      bottom: 30px;
+      left: calc(50% - 100px);
+  }
+  .taken{
+      height: 100px!important;
+      width: 100px!important;
+      transition: all 0.5s ease-in;
+      border: solid 3px white;
+      box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+      top: 20px;
+      right: 20px;
+      z-index: 2;
+  }
+
+/*From here is to style the notification window when we find someone*/
+.Notification{
+  width: 500px;
+  height: 100%;
+  border: 1px solid black;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.frame-container{
+  width: 100%;
+  height: 300px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.frame-container img {
+  width: 100%;
+  max-height: 100%;
+  min-width: 400px;
+  margin: 0;
+  border: 1px solid black;
+}
+/* Here is to style the notification details */
+
+.main-content{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+.blacklist-info-container{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.info-container{
+  margin-left: 10px;
+}
+.details-show{
+  padding: 0;
+}
+.title{
+  padding: 0;
+  font-weight: bold;
+}
+.avatar-container{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+#avatar-image{
+    max-width: 100%;
+    min-width: 150px;
+    max-height: 150px;
+    border: 2px solid black;
+}.crime-happen-info-container{
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  font-size: 12px;
+}
+.table{
+  margin-right: 0;
+}
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
