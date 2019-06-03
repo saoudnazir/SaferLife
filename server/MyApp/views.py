@@ -18,6 +18,7 @@ import numpy as np
 import struct
 import zlib
 import time
+import urllib, json
 #
 # Create your views here.
 class video:
@@ -100,10 +101,39 @@ def returnFrame():
 def video_feed(request):
     return StreamingHttpResponse(returnFrame(), content_type='multipart/x-mixed-replace; boundary=frame')
 
-def generateDB(names, imgPaths, ids):
-    g = General() 
-
-    g.generateLocalDB(names,g.encodeImages(imgPaths),ids)    
+def generateDB(request):
+    message=""
+    try:
+        g = General()
+        url ="http://10.1.6.85/webandapp/newLocalDB.php"
+        jsonURL = urllib.request.urlopen(url)
+        data = json.loads(jsonURL.read().decode())
+        id=[]
+        names=[]
+        images=[]
+        for d in data:
+            for k,v in d.items():
+                #print (v)
+                if k == 'p_ID':
+                    id.append(v)
+                if k == 'p_Name':
+                    names.append(v)
+                if k == 'p_Images':
+                    images.append('faces/' + v)
+        print(id)
+        print(names, images)
+        #print(type(data))
+        g.generateLocalDB(names, g.encodeImages(images),id)
+        message ="Successfully generating local DB"
+    except IOError:
+        message ='An error occured trying to read the file.'
+    except ImportError:
+        message = "NO file found"
+    except EOFError:
+        message = "Why did you do an EOF on me?"
+    except:
+        message = 'An error occured.'
+    return HttpResponse(message)   
 
 def MultiSocket(request):
     HOST = ''
