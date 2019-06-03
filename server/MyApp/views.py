@@ -103,12 +103,7 @@ def video_feed(request):
 def generateDB(names, imgPaths, ids):
     g = General() 
 
-    g.generateLocalDB(names,g.encodeImages(imgPaths),ids)
-
-
-
-    
-    
+    g.generateLocalDB(names,g.encodeImages(imgPaths),ids)    
 
 def MultiSocket(request):
     HOST = ''
