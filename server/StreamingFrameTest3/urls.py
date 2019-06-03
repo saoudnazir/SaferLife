@@ -20,5 +20,6 @@ from MyApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.myIndex),
-    path('video_feed/', views.video_feed, name="video-feed")
+    path('video_feed/', views.video_feed, name="video-feed"),
+    path('dbtest/',views.generateDB)
 ]

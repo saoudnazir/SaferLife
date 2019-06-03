@@ -16,7 +16,8 @@ import pickle
 import numpy as np
 import struct
 import zlib
-import time 
+import time
+import urllib, json
 # Create your views here.
 class video:
     frames = []
@@ -35,6 +36,40 @@ class video:
 def myIndex(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render({}, request))
+
+def generateDB(request):
+    message=""
+    try:
+        g = General()
+        url ="http://10.1.6.85/webandapp/newLocalDB.php"
+        jsonURL = urllib.request.urlopen(url)
+        data = json.loads(jsonURL.read().decode())
+        id=[]
+        names=[]
+        images=[]
+        for d in data:
+            for k,v in d.items():
+                #print (v)
+                if k == 'p_ID':
+                    id.append(v)
+                if k == 'p_Name':
+                    names.append(v)
+                if k == 'p_Images':
+                    images.append('faces/' + v)
+        print(id)
+        print(names, images)
+        #print(type(data))
+        g.generateLocalDB(names, g.encodeImages(images),id)
+        message ="Successfully generating local DB"
+    except IOError:
+        message ='An error occured trying to read the file.'
+    except ImportError:
+        message = "NO file found"
+    except EOFError:
+        message = "Why did you do an EOF on me?"
+    except:
+        message = 'An error occured.'
+    return HttpResponse(message)
 
 def stream():
     faces , names, ids = LoadDB.loadofflineDB()
