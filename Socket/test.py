@@ -1,9 +1,7 @@
-import cv2
+import face_recognition
+import os
+from os.path import dirname, join
 
-cap = cv2.VideoCapture(0)
-cap.set(3,320)
-cap.set(4,260)
-ret,frame = cap.read()
-print(frame)
-cv2.imshow("Frame",frame)
-cap.release()
+img = face_recognition.load_image_file(join(dirname(__file__),"huy.jpeg"))
+encodedimg = face_recognition.face_encodings(img)[0]
+print(encodedimg)
