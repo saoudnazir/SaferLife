@@ -14,25 +14,13 @@
         while($row = mysqli_fetch_assoc($result))
         {
             $data_array[] = $row;
-        }/*
-        for ($i = 0; $i < count($data_array); $i++)
-        {
-            $Image_Path = $data_array[$i]["p_Images"];
-            $type = pathinfo($Image_Path, PATHINFO_EXTENSION);
-            $Img = file_get_contents('.'.$Image_Path);
-            $ImageEncode = base64_encode($Img);
-            $ImageArray[] = $ImageEncode;            
         }
-        $ArrMerge = array_merge($data_array,$ImageArray);*/
         for ($i = 0; $i < count($data_array); $i++)
         {
             array_push($FinalArray,$data_array[$i]);
         }
         $jsonfile = json_encode($FinalArray);
-        //header('Content-disposition: attachment; filename=file.json');
-        //header('Content-type: application/json');
         echo $jsonfile;
-        //header("Location:index.php");
     } else {
         echo "Query Statement Is Not Correct?";
     }
