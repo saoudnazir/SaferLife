@@ -56,13 +56,32 @@
             document.getElementById("LocalDB").style.marginLeft="0";
             }
 
-            $(document).ready(function(){
+            /*$(document).ready(function(){
                 $("#LocalDB").click(function(){
                     $.ajax({url: "http://127.0.0.1:8000/dbtest/", success: function(result){
                     $("#div1").html(result);
                     }});
                 });
+            });*/
+            var response = '';
+            
+            $("#LocalDB").click(function(){
+                $.ajax({ type: "GET",   
+                        url: "http://127.0.0.1:8000/dbtest/",   
+                        async: false,
+                        success : function(text)
+                        {
+                            response = "OK";
+                            
+                        alert(response);
+                        },
+                        error: function(result) {
+                            response ='error';
+                            alert(response);
+                        }
+                });
             });
+
         </script>
         <!--<main id="camera">
             <canvas id="camera--sensor"></canvas>

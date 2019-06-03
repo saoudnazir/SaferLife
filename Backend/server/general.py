@@ -19,7 +19,7 @@ class General:
 
     def generateLocalDB(self, names, encodedImgs,ids):
         dir = dirname(__file__)
-        path = join(dir, "dbtest.json")
+        path = join(dir, "db.json")
         count = 0
         jsonData = {}
         data = {}
