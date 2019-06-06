@@ -20,5 +20,8 @@ from MyApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('video_feed/', views.video_feed, name="video-feed"),
-    path('dbtest/',views.generateDB),
+    path('db/',views.generateDB),
+    path('socket/',views.MultiSocket),
+    path("save-video",views.saveVideo),
+    path('printFrames',views.printFrames)
 ]

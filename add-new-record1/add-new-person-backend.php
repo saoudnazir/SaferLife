@@ -25,7 +25,7 @@
 		if ($fileError === 0)
 		{ //check the file error
 			if ($fileSize < 1000000) { //check the file size
-				$fileDestination = '../Backend/server/MyApp/faces/'.$fileName;
+				$fileDestination = '../Backend/server/faces/'.$fileName;
 				move_uploaded_file($fileTmpName, $fileDestination);
 				
 			} else {

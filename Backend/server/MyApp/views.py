@@ -21,39 +21,45 @@ import time
 import urllib, json
 #
 # Create your views here.
-class video:
-    frames = []
-    def appendframes(self,frame):
-        video.frames.append(frame)
-
-    def saveVideo(self):
-        out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (320,240))
-        for f in video.frames:
-            out.write(f)
+gobFrames = []
+def appendframes(frame):
+    global gobFrames
+    gobFrames.append(frame)
+def saveVideo(request):
+    try:
+        print("Triggered save video")
+        global gobFrames
+        frames= gobFrames
+        print(frames)
+        out = cv2.VideoWriter('outpy.avi',-1, 10, (320,240))
+        for i in range(len(frames)):
+            out.write(frames[i])
         out.release()
+    except:
+        print("Some Error")
         
-    def printFrames(self):
-        print(video.frames)
-
+def printFrames(request):
+    global gobFrames
+    print(gobFrames)
 
 isReady = False
 def stream(conn,num):
     faces , names, ids = LoadDB.loadofflineDB()
     r = Recognition(faces,names,ids)
-    v = video()
     data = b""
+    global gobFrames
     payload_size = struct.calcsize(">L")
     print("payload_size: {}".format(payload_size))
     while True:
         global isReady
         while len(data) < payload_size:
-            #print("Recv: {}".format(len(data)))
+            print("Recv: {}".format(len(data)))
 
             data += conn.recv(4096)
-            '''if len(data) == 0 :
-                print("Breaking Face Recognition")
+            if len(data) < 0 :
+                print("1.Breaking Face Recognition")
                 conn.close()
-                break'''
+                break
         
         #print("Done Recv: {}".format(len(data)))
         packed_msg_size = data[:payload_size]
@@ -62,10 +68,10 @@ def stream(conn,num):
         #print("msg_size: {}".format(msg_size))
         while len(data) < msg_size:
             data += conn.recv(4096)
-            '''if len(data) == 0:
-                print("Breaking Face Recognition")
+            if len(data) < 0:
+                print("2.Breaking Face Recognition")
                 conn.close()
-                break'''
+                break
         frame_data = data[:msg_size]
         data = data[msg_size:]
         frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
@@ -75,22 +81,14 @@ def stream(conn,num):
         cv2.waitKey(1)
         cv2.imwrite('outgoing.jpg', frame)
         isReady= True
-        v.appendframes(frame)
         with open(f"{date.today()}.txt", "a") as f:
             f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")
             f.close()
-        v.appendframes(frame)
-        '''if len(data) == 0:
-            print("Breaking Face Recognition")
-            conn.close()
-            break'''
-
-        
-        
-        #yield (b'--frame\r\n'
-        #       b'Content-Type: image/jpeg\r\n\r\n' + open('outgoing.jpg', 'rb').read() + b'\r\n')
-    '''conn.close()
-    print("Closing Socket")'''
+        gobFrames.append(frame)
+        if len(data) < 0:
+                print("3.Breaking Face Recognition")
+                conn.close()
+                break
 def returnFrame():
     while True:
         global isReady
@@ -104,8 +102,9 @@ def video_feed(request):
 def generateDB(request):
     message=""
     try:
+        print("Starting DB generation...")
         g = General()
-        url ="http://10.1.5.42/webandapp/newLocalDB.php"
+        url ="http://192.168.0.27/saferlife/newLocalDB.php"
         jsonURL = urllib.request.urlopen(url)
         data = json.loads(jsonURL.read().decode())
         id=[]

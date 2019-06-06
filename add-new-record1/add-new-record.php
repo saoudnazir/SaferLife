@@ -148,7 +148,7 @@
                         <div class="col-sm-4 add-new-person-field title" id="profile-img">Profile Image</div>
                         <div class="col-sm-4 upload-file-wraper">
                             <button class="upload-btn">Upload a file</button>
-                            <input type="file" name="file" id="inputFile"onchange="readURL(this);">
+                            <input type="file" name="file" id="inputFile" onchange="readURL(this);">
                         </div>
                         <div class="col-sm-12 add-new-person-field image-preview-container">
                             <div class="col-sm-4"></div>
@@ -207,7 +207,7 @@
                         } else {
                         ?>
                             <div class="col-sm-3 search-image-result" style="height: 100%;">
-                                <img src="../Backend/server/MyApp/faces/<?php echo $row1["p_Images"]; ?>"/>
+                                <img src="../Backend/server/<?php echo $row1["p_Images"]; ?>"/>
                             </div>
                             <div class="col-sm-9 search-details-result row">
                                 <div class="row col-sm-12">
