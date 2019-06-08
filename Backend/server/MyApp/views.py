@@ -53,13 +53,12 @@ def stream(conn,num):
     while True:
         global isReady
         while len(data) < payload_size:
-            print("Recv: {}".format(len(data)))
-
+            #print("Recv: {}".format(len(data)))
             data += conn.recv(4096)
-            if len(data) < 0 :
+            '''if len(data) < 0 :
                 print("1.Breaking Face Recognition")
                 conn.close()
-                break
+                break'''
         
         #print("Done Recv: {}".format(len(data)))
         packed_msg_size = data[:payload_size]
@@ -68,15 +67,16 @@ def stream(conn,num):
         #print("msg_size: {}".format(msg_size))
         while len(data) < msg_size:
             data += conn.recv(4096)
-            if len(data) < 0:
+            '''if len(data) < 0:
                 print("2.Breaking Face Recognition")
                 conn.close()
-                break
+                break'''
         frame_data = data[:msg_size]
         data = data[msg_size:]
         frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
         frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
         frame,name,id =  r.startFaceRecognition(frame)
+        #sleep(0.015)
         #print(id)
         cv2.waitKey(1)
         cv2.imwrite('outgoing.jpg', frame)
@@ -85,10 +85,10 @@ def stream(conn,num):
             f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")
             f.close()
         gobFrames.append(frame)
-        if len(data) < 0:
+        '''if len(data) < 0:
                 print("3.Breaking Face Recognition")
                 conn.close()
-                break
+                break'''
 def returnFrame():
     while True:
         global isReady
@@ -162,5 +162,7 @@ def MultiSocket(request):
             threadCount+=1
         print(f"Total number of threads {len(threads)} and {threadCount} are running")'''
         t.start()
-        
 
+def downloadDB(request):
+    with open("db.json","r") as file:
+        return HttpResponse(file.read())
