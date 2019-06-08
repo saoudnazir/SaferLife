@@ -1,7 +1,5 @@
 from os.path import dirname, join
 import json
-from general import General
-from urllib import request
 
 
 class LoadDB:
@@ -32,16 +30,5 @@ class LoadDB:
             print("DB has been loaded.")
         return LoadDB.known_faces_encodings, LoadDB.known_names, LoadDB.known_ids
 
-    def downloadDB():
-        g = General()
-        url = "http://0.0.0.0:8000/downloadDB/"
-        jsonURL = request.urlopen(url)
-        data = json.loads(jsonURL.read())
-        try:
-            with open(join(dirname(__file__),"test.json"),"w") as db:
-                json.dump(data,db)
-            print("DB downloaded !!")
-        except:
-            print("Some Error")
-
-
+    def loadOnlineDB(self):
+        pass

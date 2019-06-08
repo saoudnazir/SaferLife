@@ -16,15 +16,15 @@ class Menu:
         else:
             print("DB not loaded")
 
-    def downloadDB(self):
-        LoadDB.downloadDB()
+    def onlineMode(self):
+        pass
 
 
 menu = Menu()
 methods = {
     0: {"name": "Exit"},
     1: {"function": menu.offlineMode, "name": "Offline Mode"},
-    2: {"function": menu.downloadDB, "name": "Download Latest DB"},
+    2: {"function": menu.onlineMode, "name": "Online Mode"},
 }
 
 
