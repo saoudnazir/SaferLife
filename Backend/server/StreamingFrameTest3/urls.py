@@ -23,5 +23,6 @@ urlpatterns = [
     path('db/',views.generateDB),
     path('socket/',views.MultiSocket),
     path("save-video",views.saveVideo),
-    path('printFrames',views.printFrames)
+    path('printFrames',views.printFrames),
+    path('downloadDB/',views.downloadDB)
 ]
