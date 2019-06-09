@@ -27,10 +27,16 @@ class Recognition:
         process = True     
         imgCount = 1
         activityLog = []
+        now = datetime.now()
+        current_date = now.strftime("%Y-%m-%d")
+        current_time = now.strftime("%H:%M")
         cap = cv2.VideoCapture(0)
+        W = cap.get(3)
+        H = cap.get(4)
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+        out = cv2.VideoWriter(f'{(current_date,current_time)}.avi',fourcc, 10.0, (int(W),int(H)),True)
         while True:
             ret , frame = cap.read()
-            print(ret)
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
             rgb_small_frame = small_frame[:, :, ::-1]
             if process:
@@ -53,10 +59,12 @@ class Recognition:
                     user_ID.append(id)
 
             process = not process
-            if "Unknown" in face_names:
-                    cv2.imwrite(f"Unknown{imgCount}.jpg",frame)
-                    imgCount+=1
+            
             for (top, right, bottom, left), name, id in zip(face_locations, face_names,user_ID):
+                now = datetime.now()
+                current_time = now.strftime("%H:%M")
+                current_time_sec = now.strftime("%H:%M:%S")
+                current_date = now.strftime("%Y-%m-%d")
                 top *= 4
                 right *= 4
                 bottom *= 4 
@@ -68,18 +76,19 @@ class Recognition:
                 font = cv2.FONT_HERSHEY_DUPLEX
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 1.0, (255, 255, 255), 1)
-                now = datetime.now()
-                current_time = now.strftime("%H:%M")
-                current_date = now.strftime("%Y-%m-%d")
-                activityLog.append(f"{name} is seen on {current_time}\n")
+                activityLog.append(f"{name} is seen at {current_time}.\n")
+                if "Unknown" in face_names:
+                    cv2.imwrite(f"unknown/Unknown{(current_date,current_time_sec)}.jpg",frame)
+                    imgCount+=1
             cv2.imshow("Frames",frame)
+            out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 g = General()
                 activityLog = g.sortActivityLog(activityLog)
                 path = join(dirname(__file__),f"Logs/{current_date}.txt")
                 with open(path,"w") as file:
                     file.writelines(activityLog)
-                print(path)
                 break
         cap.release()
+        out.release()
         cv2.destroyAllWindows()
