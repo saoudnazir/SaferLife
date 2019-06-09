@@ -27,8 +27,14 @@ class Recognition:
         process = True     
         imgCount = 1
         activityLog = []
+        now = datetime.now()
+        current_date = now.strftime("%Y-%m-%d")
+        current_time = now.strftime("%H:%M")
         cap = cv2.VideoCapture(0)
-        out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('m','p','4','v'), 10, (360,240))
+        W = cap.get(3)
+        H = cap.get(4)
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+        out = cv2.VideoWriter(f'{(current_date,current_time)}.avi',fourcc, 10.0, (int(W),int(H)),True)
         while True:
             ret , frame = cap.read()
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
