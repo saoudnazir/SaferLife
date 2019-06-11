@@ -22,6 +22,7 @@ import urllib, json
 #
 # Create your views here.
 gobFrames = []
+gobID = 0
 def appendframes(frame):
     global gobFrames
     gobFrames.append(frame)
@@ -52,14 +53,12 @@ def stream(conn,num):
     print("payload_size: {}".format(payload_size))
     while True:
         global isReady
+        global gobID
+        gobID = 0
         while len(data) < payload_size:
             print("Recv: {}".format(len(data)))
 
             data += conn.recv(4096)
-            if len(data) < 0 :
-                print("1.Breaking Face Recognition")
-                conn.close()
-                break
         
         #print("Done Recv: {}".format(len(data)))
         packed_msg_size = data[:payload_size]
@@ -68,10 +67,6 @@ def stream(conn,num):
         #print("msg_size: {}".format(msg_size))
         while len(data) < msg_size:
             data += conn.recv(4096)
-            if len(data) < 0:
-                print("2.Breaking Face Recognition")
-                conn.close()
-                break
         frame_data = data[:msg_size]
         data = data[msg_size:]
         frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
@@ -85,10 +80,8 @@ def stream(conn,num):
             f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")
             f.close()
         gobFrames.append(frame)
-        if len(data) < 0:
-                print("3.Breaking Face Recognition")
-                conn.close()
-                break
+        gobID = id
+        #print(gobID)
 def returnFrame():
     while True:
         global isReady
@@ -99,12 +92,20 @@ def returnFrame():
 def video_feed(request):
     return StreamingHttpResponse(returnFrame(), content_type='multipart/x-mixed-replace; boundary=frame')
 
+def alert_crime(request):
+    global gobID
+    print(gobID)
+    if gobID == 0:
+        return HttpResponse("No Criminal Found", content_type="text/plain")
+    else:
+        return HttpResponse(gobID)
+
 def generateDB(request):
     message=""
     try:
         print("Starting DB generation...")
         g = General()
-        url ="http://192.168.0.27/saferlife/newLocalDB.php"
+        url ="http://192.168.0.8/webandapp/newLocalDB.php"
         jsonURL = urllib.request.urlopen(url)
         data = json.loads(jsonURL.read().decode())
         id=[]
