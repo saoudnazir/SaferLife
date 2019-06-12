@@ -33,7 +33,7 @@ for keys, values in methods.items():
 
 
 while True:
-    choice = int(input(f"Enter a number between 1 and {len(methods)}: "))
+    choice = int(input("Enter a number between 1 and {}: ".format(len(methods))))
     if(choice is 0):
         break
     methods[choice]['function']()
