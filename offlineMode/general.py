@@ -24,7 +24,7 @@ class General:
         jsonData = {}
         data = {}
         for name, img, id in zip(names, encodedImgs,ids):
-            data[f"{id}"] = {"name":name,"face":img}
+            data[str(id)] = {"name":name,"face":img}
 
 
             #data[f"{name}"] = img

@@ -34,7 +34,7 @@ class Recognition:
         W = cap.get(3)
         H = cap.get(4)
         fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-        out = cv2.VideoWriter(f'{(current_date,current_time)}.avi',fourcc, 10.0, (int(W),int(H)),True)
+        out = cv2.VideoWriter('{}.avi'.format((current_date,current_time)),fourcc, 10.0, (int(W),int(H)),True)
         while True:
             ret , frame = cap.read()
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
@@ -76,16 +76,16 @@ class Recognition:
                 font = cv2.FONT_HERSHEY_DUPLEX
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 1.0, (255, 255, 255), 1)
-                activityLog.append(f"{name} is seen at {current_time}.\n")
+                activityLog.append("{} is seen at {}.\n".format(name,current_time))
                 if "Unknown" in face_names:
-                    cv2.imwrite(f"unknown/Unknown{(current_date,current_time_sec)}.jpg",frame)
+                    cv2.imwrite("unknown/Unknown{}.jpg".format((current_date,current_time_sec)),frame)
                     imgCount+=1
             cv2.imshow("Frames",frame)
             out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 g = General()
                 activityLog = g.sortActivityLog(activityLog)
-                path = join(dirname(__file__),f"Logs/{current_date}.txt")
+                path = join(dirname(__file__),"Logs/{}.txt".format(current_date))
                 with open(path,"w") as file:
                     file.writelines(activityLog)
                 break
