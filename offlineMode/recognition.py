@@ -31,8 +31,13 @@ class Recognition:
         current_date = now.strftime("%Y-%m-%d")
         current_time = now.strftime("%H:%M")
         cap = cv2.VideoCapture(0)
+        cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("Frame",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
+        cap.set(3,2592)
+        cap.set(4,1944)
         W = cap.get(3)
         H = cap.get(4)
+        print(W,H)
         fourcc = cv2.VideoWriter_fourcc(*'DIVX')
         out = cv2.VideoWriter('{}.avi'.format((current_date,current_time)),fourcc, 10.0, (int(W),int(H)),True)
         while True:
@@ -80,7 +85,7 @@ class Recognition:
                 if "Unknown" in face_names:
                     cv2.imwrite("unknown/Unknown{}.jpg".format((current_date,current_time_sec)),frame)
                     imgCount+=1
-            cv2.imshow("Frames",frame)
+            cv2.imshow("Frame",frame)
             out.write(frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 g = General()

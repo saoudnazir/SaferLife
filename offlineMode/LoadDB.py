@@ -32,7 +32,6 @@ class LoadDB:
         return LoadDB.known_faces_encodings, LoadDB.known_names, LoadDB.known_ids
 
     def downloadDB(ip):
-        g = General()
         url = "http://{}:8000/downloadDB/".format(ip)
         jsonURL = request.urlopen(url)
         data = json.loads(jsonURL.read().decode('utf-8'))
