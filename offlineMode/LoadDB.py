@@ -37,7 +37,7 @@ class LoadDB:
         jsonURL = request.urlopen(url)
         data = json.loads(jsonURL.read().decode('utf-8'))
         try:
-            with open(join(dirname(__file__),"test.json"),"w") as db:
+            with open(join(dirname(__file__),"db.json"),"w") as db:
                 json.dump(data,db)
             print("DB downloaded !!")
         except:
