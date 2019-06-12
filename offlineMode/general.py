@@ -30,7 +30,6 @@ class General:
             #data[f"{name}"] = img
             jsonData.update(data)
             count += 1
-        print(jsonData)
         with open(path, 'w') as json_file:
             json_file.write(str(json.dumps(data)))
         json_file.close()
