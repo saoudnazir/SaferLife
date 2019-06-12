@@ -31,9 +31,9 @@ class LoadDB:
             print("DB has been loaded.")
         return LoadDB.known_faces_encodings, LoadDB.known_names, LoadDB.known_ids
 
-    def downloadDB():
+    def downloadDB(ip):
         g = General()
-        url = "http://0.0.0.0:8000/downloadDB/"
+        url = "http://{}:8000/downloadDB/".format(ip)
         jsonURL = request.urlopen(url)
         data = json.loads(jsonURL.read())
         try:

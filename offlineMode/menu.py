@@ -9,7 +9,7 @@ class Menu:
     names = []
     faces = []
     ids =[]
-
+    ipAddr='192.168.0.27'
     def offlineMode(self):
         self.faces, self.names, self.ids = LoadDB.loadofflineDB()
         if(self.faces and self.names):
@@ -19,12 +19,12 @@ class Menu:
             print("DB not loaded")
     
     def onlineMode(self):
-        ipAddr = '127.0.0.1'
+        
         port = 8485
-        startSocket(ipAddr,port)
+        startSocket(self.ipAddr,port)
 
     def downloadDB(self):
-        LoadDB.downloadDB()
+        LoadDB.downloadDB(self.ipAddr)
 
 
 menu = Menu()
