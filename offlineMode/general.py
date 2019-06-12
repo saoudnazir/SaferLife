@@ -5,6 +5,7 @@ import face_recognition
 import numpy as np
 
 
+
 class General:
 
     def sortActivityLog(self, logs):
@@ -53,3 +54,6 @@ class General:
         
 
         return encodedImgArrStr
+    
+    def startSocketConn(self):
+        pass

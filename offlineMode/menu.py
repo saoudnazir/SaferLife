@@ -3,6 +3,8 @@ from recognition import Recognition
 from general import General
 from os.path import join, dirname
 import os
+from client import startSocket
+
 class Menu:
     names = []
     faces = []
@@ -15,6 +17,11 @@ class Menu:
             r.startFaceRecognition()
         else:
             print("DB not loaded")
+    
+    def onlineMode(self):
+        ipAddr = '127.0.0.1'
+        port = 8485
+        startSocket(ipAddr,port)
 
     def downloadDB(self):
         LoadDB.downloadDB()
@@ -24,7 +31,8 @@ menu = Menu()
 methods = {
     0: {"name": "Exit"},
     1: {"function": menu.offlineMode, "name": "Offline Mode"},
-    2: {"function": menu.downloadDB, "name": "Download Latest DB"},
+    2: {"function": menu.onlineMode, "name": "Online Mode"},
+    3: {"function": menu.downloadDB, "name": "Download Latest DB"},
 }
 
 
