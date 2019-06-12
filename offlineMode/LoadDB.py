@@ -35,7 +35,7 @@ class LoadDB:
         g = General()
         url = "http://{}:8000/downloadDB/".format(ip)
         jsonURL = request.urlopen(url)
-        data = json.loads(jsonURL.read())
+        data = json.loads(jsonURL.read().decode('utf-8'))
         try:
             with open(join(dirname(__file__),"test.json"),"w") as db:
                 json.dump(data,db)
