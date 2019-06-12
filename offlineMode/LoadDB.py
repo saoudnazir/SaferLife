@@ -23,8 +23,7 @@ class LoadDB:
                             LoadDB.known_names.append(v)
                         if k == "face":
                             LoadDB.known_faces_encodings.append(v)
-                    print(
-                        f"{(len(LoadDB.known_names)/len(data.items())*100)}% has been loaded")
+                    print('{}% has been loaded'.format((len(LoadDB.known_names)/len(data.items())*100)))
 
         except IOError:
             print("DB could not be loaded.")

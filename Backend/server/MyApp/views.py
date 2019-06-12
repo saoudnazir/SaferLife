@@ -22,6 +22,7 @@ import urllib, json
 #
 # Create your views here.
 gobFrames = []
+gobID = 0
 def appendframes(frame):
     global gobFrames
     gobFrames.append(frame)
@@ -52,6 +53,7 @@ def stream(conn,num):
     print("payload_size: {}".format(payload_size))
     while True:
         global isReady
+        global gobID
         while len(data) < payload_size:
             #print("Recv: {}".format(len(data)))
             data += conn.recv(4096)
@@ -85,6 +87,7 @@ def stream(conn,num):
             f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")
             f.close()
         gobFrames.append(frame)
+        gobID = id
         '''if len(data) < 0:
                 print("3.Breaking Face Recognition")
                 conn.close()

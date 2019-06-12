@@ -29,7 +29,7 @@ methods = {
 
 
 for keys, values in methods.items():
-    print(f"Press {keys} for {values['name']}")
+    print("Press {} for {}".format(keys,values['name']))
 
 
 while True:
