@@ -33,7 +33,7 @@ class LoadDB:
 
     def downloadDB():
         g = General()
-        url = "http://0.0.0.0:8000/downloadDB/"
+        url = "http://192.168.0.27:8000/downloadDB/"
         jsonURL = request.urlopen(url)
         data = json.loads(jsonURL.read())
         try:

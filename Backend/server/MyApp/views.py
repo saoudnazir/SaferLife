@@ -19,6 +19,7 @@ import struct
 import zlib
 import time
 import urllib, json
+import face_recognition
 #
 # Create your views here.
 gobFrames = []
@@ -82,6 +83,7 @@ def stream(conn,num):
         #print(id)
         cv2.waitKey(1)
         cv2.imwrite('outgoing.jpg', frame)
+
         isReady= True
         with open(f"{date.today()}.txt", "a") as f:
             f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")

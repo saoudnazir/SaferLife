@@ -96,7 +96,7 @@
         </main>-->
         <div id="div1"></div>
         <button type="button" id="LocalDB" style="background-color:green;padding:15px;color:white;position:absolute;bottom: 10px;left:10px;border-radius:5px; border: 1px solid green">Generate Local DB</button>
-        <!--<img src="http://<?php echo $ip_address?>:8000/video_feed/" style="width:100%; height:100%;position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;z-index:-1;padding:0;" id="main"/>-->
+        <img src="http://<?php echo $ip_address?>:8000/video_feed/" style="width:100%; height:100%;position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;z-index:-1;padding:0;" id="main"/>
         <!-- Reference to your JavaScript file -->
         <script src="script.js"></script>
     </body>
