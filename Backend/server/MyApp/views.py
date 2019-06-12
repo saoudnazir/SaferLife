@@ -19,11 +19,12 @@ import struct
 import zlib
 import time
 import urllib, json
-import face_recognition
+import os
 #
 # Create your views here.
 gobFrames = []
 gobID = 0
+allThreads=[]
 def appendframes(frame):
     global gobFrames
     gobFrames.append(frame)
@@ -32,24 +33,31 @@ def saveVideo(request):
         print("Triggered save video")
         global gobFrames
         frames= gobFrames
-        print(frames)
-        out = cv2.VideoWriter('outpy.avi',-1, 10, (320,240))
+        img = frames[0]
+        height, width, channels = img.shape
+        print(width,height)
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+        out = cv2.VideoWriter('{}.avi'.format('Video1'),fourcc, 10.0, (int(width),int(height)),True)
         for i in range(len(frames)):
             out.write(frames[i])
         out.release()
     except:
         print("Some Error")
-        
-def printFrames(request):
-    global gobFrames
-    print(gobFrames)
+     
 
 isReady = False
-def stream(conn,num):
+def stream(conn,addr):
+    if not os.path.exists('{}'.format(addr)):
+        os.makedirs('{}'.format(addr))
+        print("Folder Created named as {}".format(addr))
     faces , names, ids = LoadDB.loadofflineDB()
     r = Recognition(faces,names,ids)
     data = b""
     global gobFrames
+    global allThreads
+    logs = []
+    g = General()
+    allThreads.append(threading.current_thread().ident)
     payload_size = struct.calcsize(">L")
     print("payload_size: {}".format(payload_size))
     while True:
@@ -58,10 +66,10 @@ def stream(conn,num):
         while len(data) < payload_size:
             #print("Recv: {}".format(len(data)))
             data += conn.recv(4096)
-            '''if len(data) < 0 :
+            if len(data) < 5 :
                 print("1.Breaking Face Recognition")
                 conn.close()
-                break'''
+                break
         
         #print("Done Recv: {}".format(len(data)))
         packed_msg_size = data[:payload_size]
@@ -70,30 +78,33 @@ def stream(conn,num):
         #print("msg_size: {}".format(msg_size))
         while len(data) < msg_size:
             data += conn.recv(4096)
-            '''if len(data) < 0:
+            if len(data) < 5:
                 print("2.Breaking Face Recognition")
                 conn.close()
-                break'''
+                break
         frame_data = data[:msg_size]
         data = data[msg_size:]
         frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
         frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-        frame,name,id =  r.startFaceRecognition(frame)
+        frame,name,id =  r.startFaceRecognition(frame,addr)
         #sleep(0.015)
         #print(id)
         cv2.waitKey(1)
         cv2.imwrite('outgoing.jpg', frame)
 
         isReady= True
-        with open(f"{date.today()}.txt", "a") as f:
-            f.write(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M:%S %p')}\n")
-            f.close()
+        if name:
+            logs.append(f"{name} is seen on {date.today()} at {datetime.now().strftime('%I:%M %p')}\n")
+            logs = g.sortActivityLog(logs)
+            with open(f"{addr}/{date.today()}.txt", "w") as f:
+                f.writelines(logs)
+            name=False
         gobFrames.append(frame)
         gobID = id
-        '''if len(data) < 0:
+        if len(frame_data) < 0:
                 print("3.Breaking Face Recognition")
                 conn.close()
-                break'''
+                break
 def returnFrame():
     while True:
         global isReady
@@ -142,7 +153,6 @@ def generateDB(request):
 def MultiSocket(request):
     HOST = ''
     PORT = 8485
-    threads=[]
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print('Socket created')
 
@@ -152,13 +162,13 @@ def MultiSocket(request):
     print('Socket now listening')
     #threading.Thread(target=optimizeThreads).start()
     num = 1
+    global allThreads
     while True:
         print("Waiting for Connection")
         conn, addr = s.accept()
-        print(f"Connected with {addr}")
-        t = threading.Thread(target=stream, args=(conn,num,))
-        threads.append(t.getName())
-        print(threads,len(threads))
+        ip, port = addr
+        print(f"Connected with {ip}")
+        t = threading.Thread(target=stream, args=(conn,ip,))
         num+=1
         threadCount = 0
         '''for t in threads:
@@ -167,6 +177,7 @@ def MultiSocket(request):
             threadCount+=1
         print(f"Total number of threads {len(threads)} and {threadCount} are running")'''
         t.start()
+        print(allThreads,len(allThreads))
 
 def downloadDB(request):
     with open("db.json","r") as file:
