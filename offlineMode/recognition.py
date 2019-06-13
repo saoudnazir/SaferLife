@@ -33,8 +33,6 @@ class Recognition:
         cap = cv2.VideoCapture(0)
         cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty("Frame",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
-        cap.set(3,2592)
-        cap.set(4,1944)
         W = cap.get(3)
         H = cap.get(4)
         print(W,H)
