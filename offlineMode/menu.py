@@ -4,6 +4,7 @@ from general import General
 from os.path import join, dirname
 import os
 from client import startSocket
+import sys
 
 class Menu:
     names = []
@@ -38,8 +39,11 @@ methods = {
 
 for keys, values in methods.items():
     print("Press {} for {}".format(keys,values['name']))
-
-choice = int(input("Enter a number between 1 and {}: ".format(len(methods))))
-while choice > -1 & choice < 4:
+print("Enter a number between 1 and {}: ".format(len(methods)))
+choice = int(sys.stdin.readline())
+while True:
     methods[choice]['function']()
-    choice = int(input("Enter a number between 1 and {}: ".format(len(methods))))
+    print("Enter a number between 1 and {}: ".format(len(methods)))
+    choice = int(sys.stdin.readline())
+    if choice == 0:
+        break
