@@ -20,14 +20,14 @@ import zlib
 import time
 import urllib, json
 import os
-#
-# Create your views here.
+
 gobFrames = []
 gobID = 0
 allThreads=[]
 def appendframes(frame):
     global gobFrames
     gobFrames.append(frame)
+
 def saveVideo(request):
     try:
         print("Triggered save video")
@@ -168,16 +168,17 @@ def MultiSocket(request):
         conn, addr = s.accept()
         ip, port = addr
         print(f"Connected with {ip}")
-        t = threading.Thread(target=stream, args=(conn,ip,))
+        t = threading.Thread(target=stream,name=f"Streaming-{num}", args=(conn,ip,))
         num+=1
-        threadCount = 0
-        '''for t in threads:
+        '''threadCount = 0
+        for t in threads:
             if not t.is_alive():
                 del threads[threadCount]
             threadCount+=1
         print(f"Total number of threads {len(threads)} and {threadCount} are running")'''
         t.start()
         print(allThreads,len(allThreads))
+        
 
 def downloadDB(request):
     with open("db.json","r") as file:
