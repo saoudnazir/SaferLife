@@ -86,9 +86,8 @@ def stream(conn,addr):
         data = data[msg_size:]
         frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
         frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-        frame,name,id =  r.startFaceRecognition(frame,addr)
+        frame,name,ids =  r.startFaceRecognition(frame,addr)
         #sleep(0.015)
-        #print(id)
         cv2.waitKey(1)
         cv2.imwrite('outgoing.jpg', frame)
 
@@ -100,7 +99,8 @@ def stream(conn,addr):
                 f.writelines(logs)
             name=False
         gobFrames.append(frame)
-        gobID = id
+        gobID = ids
+        
         if len(frame_data) < 0:
                 print("3.Breaking Face Recognition")
                 conn.close()
