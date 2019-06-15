@@ -2,13 +2,13 @@
     include "connect.php";
     session_start();
     $url ="http://".$ip_address.":8000/alert";
-
-    $contents = file_get_contents($url);
+    $contents = array();
+    $contents  = file_get_contents($url);
 
     if($contents !== false){
-        //echo $contents;s
+        echo $contents;
         //Print out the contents.
-        if($contents !== "No Criminal Found")
+        /*if($contents !== "No Criminal Found")
         {
             if(!isset($_SESSION["ResponseID"]))
             {
@@ -47,6 +47,6 @@
 
         } else {
             echo $contents;
-        }
+        }*/
     }
 ?>
