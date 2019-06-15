@@ -67,4 +67,4 @@ class Recognition:
             nameStr = name
             idStr = id
         cv2.destroyAllWindows()
-        return frame, nameStr, user_ID
+        return frame, nameStr, idStr
