@@ -61,7 +61,7 @@
                         {
                     ?>
                     <div class="col-sm-4 avatar-container">                        
-                        <img src="../Backend/server/MyApp/faces/<?php echo $data[0]['p_Images']; ?>" id="avatar-image"/>
+                        <img src="../Backend/server/faces/<?php echo $data[0]['p_Images']; ?>" id="avatar-image"/>
                     </div>
                     <div class="col-sm-8 info-container row">
                         <div class="col-sm-4 title name-field">Full Name</div>

@@ -54,7 +54,6 @@ def stream(conn,num):
     while True:
         global isReady
         global gobID
-        gobID = 0
         while len(data) < payload_size:
             print("Recv: {}".format(len(data)))
 
@@ -72,7 +71,7 @@ def stream(conn,num):
         frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
         frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
         frame,name,id =  r.startFaceRecognition(frame)
-        #print(id)
+        print("Here is the ID itself: " + id)
         cv2.waitKey(1)
         cv2.imwrite('outgoing.jpg', frame)
         isReady= True
@@ -81,7 +80,7 @@ def stream(conn,num):
             f.close()
         gobFrames.append(frame)
         gobID = id
-        #print(gobID)
+        print("Here is the GOBID: " + gobID)
 def returnFrame():
     while True:
         global isReady
@@ -94,11 +93,11 @@ def video_feed(request):
 
 def alert_crime(request):
     global gobID
-    print(gobID)
-    if gobID == 0:
-        return HttpResponse("No Criminal Found", content_type="text/plain")
+    print("Inside the alert: " + str(gobID))
+    if gobID == 0 or gobID == None or gobID == "":
+        return HttpResponse("No Criminal Found")
     else:
-        return HttpResponse(gobID)
+        return HttpResponse(str(gobID))
 
 def generateDB(request):
     message=""
