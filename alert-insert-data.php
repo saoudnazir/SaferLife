@@ -2,13 +2,11 @@
     include "connect.php";
     session_start();
     $url ="http://".$ip_address.":8000/alert";
-    $contents = array();
-    $contents  = file_get_contents($url);
-
+    $contents = file_get_contents($url);
     if($contents !== false){
-        echo $contents;
+        //echo $contents;s
         //Print out the contents.
-        /*if($contents !== "No Criminal Found")
+        if($contents !== "No Criminal Found")
         {
             if(!isset($_SESSION["ResponseID"]))
             {
@@ -44,9 +42,8 @@
                     echo "Error occured: ".$query. "<br>" . $conn->error;;
                 }
             }
-
         } else {
             echo $contents;
-        }*/
+        }
     }
 ?>
