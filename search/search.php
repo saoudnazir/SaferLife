@@ -1,7 +1,7 @@
 <?php
 	include "../connect.php";
     session_start();
-    
+    include "../authentication-check.php";
     if(isset($_GET['value']))
     {
         $value = $_GET['value'];

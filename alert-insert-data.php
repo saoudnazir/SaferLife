@@ -26,7 +26,8 @@
                 }
             } else if(in_array($contents, $_SESSION["ResponseID"])){
                 echo "Criminal found has been inserted.";
-            } else {
+            } else if (isset($_SESSION["res_ID"])){
+                //unset($_SESSION["res_ID"]);
                 unset($_SESSION["res_ID"]);
                 $_SESSION["res_ID"] = $contents;
                 $date = date("Y/m/d");
@@ -41,6 +42,7 @@
                 } else {
                     echo "Error occured: ".$query. "<br>" . $conn->error;;
                 }
+                echo "Manh Huy Vo";
             }
         } else {
             echo $contents;

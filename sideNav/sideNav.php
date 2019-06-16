@@ -5,7 +5,7 @@ echo '
         <a href="../index.php">Home</a>
         <a href="../add-new-record1/add-new-record.php">Add New Record</a>
         <a href="../search/search.php">Search In List</a>
-        <a href="../logout/logout.php">Log Out</a>
+        <a href="../logout.php">Log Out</a>
     </div>
     <a onclick="openNav()"><i class="fas fa-bars openNavBtn" style="font-size: 30px; color: #0000e6; margin: 10px 10px 10px 10px;"></i></a>
     <script>
