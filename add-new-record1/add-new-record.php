@@ -181,7 +181,7 @@
                         ?>
                         <li><a href="./add-new-record.php?action=blacklist&id=<?php echo $data[$x]['p_ID']?>" class="row">
                             <div class="col-sm-3 search-image-result" style="height: 100%;">
-                                <img src="../Backend/server/MyApp/faces/<?php echo $data[$x]["p_Images"]; ?>"/>
+                                <img src="../Backend/server/faces/<?php echo $data[$x]["p_Images"]; ?>"/>
                             </div>
                             <div class="col-sm-9 search-details-result row">
                                 <div class="row col-sm-12">
@@ -207,7 +207,7 @@
                         } else {
                         ?>
                             <div class="col-sm-3 search-image-result" style="height: 100%;">
-                                <img src="../Backend/server/<?php echo $row1["p_Images"]; ?>"/>
+                                <img src="../Backend/server/faces/<?php echo $row1["p_Images"]; ?>"/>
                             </div>
                             <div class="col-sm-9 search-details-result row">
                                 <div class="row col-sm-12">
@@ -236,11 +236,11 @@
                     <form action="add-new-blacklist-backend.php" method="post" class="add-new-person-form row" enctype="multipart/form-data">
                         <div class="row col-sm-12">
                             <div class="col-sm-4 add-new-person-field title">Person Identification</div>
-                            <div class="col-sm-8 add-new-person-field"><input style ="padding: 10px" type="text" value="<?php echo $row1['p_ID']; ?>" name="add-new-blacklist-pID" size="8" readonly></div>
+                            <div class="col-sm-8 add-new-person-field"><input style ="padding: 10px" type="text" value="<?php if (isset($_GET['id'])) {echo $row1['p_ID'];} ?>" name="add-new-blacklist-pID" size="8" readonly></div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-4 add-new-person-field title">Person Full Name</div>
-                            <div class="col-sm-8 add-new-person-field"><input style ="padding: 10px" type="text" value="<?php echo $row1['p_Name']; ?>" name="add-new-blacklist-pName" size="20" readonly></div>
+                            <div class="col-sm-8 add-new-person-field"><input style ="padding: 10px" type="text" value="<?php if(isset($_GET['id'])) {echo $row1['p_Name'];} ?>" name="add-new-blacklist-pName" size="20" readonly></div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-4 add-new-person-field title">Crime</div>

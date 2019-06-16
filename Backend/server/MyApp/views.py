@@ -114,12 +114,19 @@ def returnFrame():
 def video_feed(request):
     return StreamingHttpResponse(returnFrame(), content_type='multipart/x-mixed-replace; boundary=frame')
 
+def alert_crime(request):
+    global gobID
+    if gobID == 0 or gobID == None or gobID == "":
+        return HttpResponse("No Criminal Found")
+    else:
+        return HttpResponse(str(gobID))
+
 def generateDB(request):
     message=""
     try:
         print("Starting DB generation...")
         g = General()
-        url ="http://192.168.0.27/saferlife/newLocalDB.php"
+        url ="http://192.168.1.106/webandapp/newLocalDB.php"
         jsonURL = urllib.request.urlopen(url)
         data = json.loads(jsonURL.read().decode())
         id=[]
@@ -146,7 +153,7 @@ def generateDB(request):
     except EOFError:
         message = "Why did you do an EOF on me?"
     except:
-        message = 'An error occured.'
+        message = 'An error occured1.'
     return HttpResponse(message)   
 
 def MultiSocket(request):

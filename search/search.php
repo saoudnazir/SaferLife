@@ -1,7 +1,7 @@
 <?php
 	include "../connect.php";
     session_start();
-    
+    include "../authentication-check.php";
     if(isset($_GET['value']))
     {
         $value = $_GET['value'];
@@ -21,7 +21,7 @@
             }
         } else if ($value == 'blacklist')
         {
-            $query = "SELECT p.p_ID, p.p_Name, p.p_dob, p.p_address, p.p_Note, p.p_Images, c.c_Name FROM blacklist b
+            $query = "SELECT DISTINCT p.p_ID, p.p_Name, p.p_dob, p.p_address, p.p_Note, p.p_Images, c.c_Name FROM blacklist b
             inner join people p on b.p_ID = p.p_ID
             inner join crime c on b.c_ID = c.c_ID";
         
@@ -130,7 +130,7 @@
                     ?>
                     <li><a href="../display/display.php?id=<?php echo $data[$x]['p_ID']?>" class="row">
                         <div class="col-sm-3 search-image-result">
-                            <img src="../Backend/server/MyApp/faces/<?php echo $data[$x]["p_Images"]; ?>"/>
+                            <img src="../Backend/server/faces/<?php echo $data[$x]["p_Images"]; ?>"/>
                         </div>
                         <div class="col-sm-9 search-details-result row">
                             <div class="col-sm-4 title name-field">Full Name</div>
@@ -152,7 +152,7 @@
                     ?>
                     <li><a href="../display/display.php?id=<?php echo $data[$x]['p_ID']; ?>" class="row">
                         <div class="col-sm-3 search-image-result">
-                            <img src="../<?php echo $data[$x]["p_Images"]; ?>"/>
+                            <img src="../Backend/server/faces/<?php echo $data[$x]["p_Images"]; ?>"/>
                         </div>
                         <div class="col-sm-9 search-details-result row">
                             <div class="col-sm-4 title name-field">Full Name</div>

@@ -11,7 +11,7 @@ class LoadDB:
         try:
             print("Loading DB....")
             dir = dirname(__file__)
-            path = join(dir, "dbtest.json")
+            path = join(dir, "db.json")
             with open(path) as json_file:
                 data = json.load(json_file)
                 for key, value in data.items():
