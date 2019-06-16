@@ -16,24 +16,24 @@ class Menu:
         else:
             print("DB not loaded")
 
-    def onlineMode(self):
-        pass
+    def downloadDB(self):
+        LoadDB.downloadDB()
 
 
 menu = Menu()
 methods = {
     0: {"name": "Exit"},
     1: {"function": menu.offlineMode, "name": "Offline Mode"},
-    2: {"function": menu.onlineMode, "name": "Online Mode"},
+    2: {"function": menu.downloadDB, "name": "Download Latest DB"},
 }
 
 
 for keys, values in methods.items():
-    print(f"Press {keys} for {values['name']}")
+    print("Press {} for {}".format(keys,values['name']))
 
 
 while True:
-    choice = int(input(f"Enter a number between 1 and {len(methods)}: "))
+    choice = int(input("Enter a number between 1 and {}: ".format(len(methods))))
     if(choice is 0):
         break
     methods[choice]['function']()

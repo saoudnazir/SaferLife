@@ -22,6 +22,7 @@ urlpatterns = [
     path('video_feed/', views.video_feed, name="video-feed"),
     path('db/',views.generateDB),
     path('socket/',views.MultiSocket),
-    path("save-video",views.saveVideo),
-    path('alert',views.alert_crime)
+    path("save-video/",views.saveVideo),
+    path('alert',views.alert_crime),
+    path('downloadDB/',views.downloadDB)
 ]

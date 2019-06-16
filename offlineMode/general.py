@@ -24,13 +24,12 @@ class General:
         jsonData = {}
         data = {}
         for name, img, id in zip(names, encodedImgs,ids):
-            data[f"{id}"] = {"name":name,"face":img}
+            data[str(id)] = {"name":name,"face":img}
 
 
             #data[f"{name}"] = img
             jsonData.update(data)
             count += 1
-        print(jsonData)
         with open(path, 'w') as json_file:
             json_file.write(str(json.dumps(data)))
         json_file.close()

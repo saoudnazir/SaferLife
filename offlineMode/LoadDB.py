@@ -1,5 +1,7 @@
 from os.path import dirname, join
 import json
+from general import General
+from urllib import request
 
 
 class LoadDB:
@@ -21,8 +23,7 @@ class LoadDB:
                             LoadDB.known_names.append(v)
                         if k == "face":
                             LoadDB.known_faces_encodings.append(v)
-                    print(
-                        f"{(len(LoadDB.known_names)/len(data.items())*100)}% has been loaded")
+                    print('{}% has been loaded'.format((len(LoadDB.known_names)/len(data.items())*100)))
 
         except IOError:
             print("DB could not be loaded.")
@@ -30,5 +31,16 @@ class LoadDB:
             print("DB has been loaded.")
         return LoadDB.known_faces_encodings, LoadDB.known_names, LoadDB.known_ids
 
-    def loadOnlineDB(self):
-        pass
+    def downloadDB():
+        g = General()
+        url = "http://192.168.0.27:8000/downloadDB/"
+        jsonURL = request.urlopen(url)
+        data = json.loads(jsonURL.read())
+        try:
+            with open(join(dirname(__file__),"test.json"),"w") as db:
+                json.dump(data,db)
+            print("DB downloaded !!")
+        except:
+            print("Some Error")
+
+

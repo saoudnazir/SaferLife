@@ -5,10 +5,10 @@
     if(isset($_GET['id']))
     {
         $id = $_GET['id'];
-        $query = "SELECT p.p_Name, p.p_dob, p.p_address, p.p_Note, p.p_Images, c.c_Name, c.c_level, b.b_Date, b.b_Time, b.b_location FROM blacklist b
-            inner join people p on b.p_ID = p.p_ID
+        $query = "SELECT p.p_Name, p.p_dob, p.p_address, p.p_Note, p.p_Images, c.c_Name, c.c_level, b.b_Date, b.b_Time, b.b_location FROM people p
+            inner join blacklist b on p.p_ID = b.p_ID
             inner join crime c on b.c_ID = c.c_ID
-            where b.p_ID = $id";
+            where p.p_ID = $id";
         
         $result = mysqli_query($conn,$query);
         $data = array();
@@ -21,7 +21,19 @@
                 $data[] = $row;
             }          
         } else {
-            echo "There is nothing match!";
+            $query1 = "SELECT p.p_Name, p.p_dob, p.p_address, p.p_Note, p.p_Images FROM people p WHERE p.p_ID = $id";
+            $result1 = mysqli_query($conn,$query1);
+            $data1 = array();
+            $count1 = mysqli_num_rows($result1);
+            if($count1 > 0)
+            {
+                while ($row = mysqli_fetch_assoc($result1))
+                {
+                    $data[] = $row;
+                }          
+            } else {
+                echo "There is nothing match!";
+            }
         }
     }
 ?>
