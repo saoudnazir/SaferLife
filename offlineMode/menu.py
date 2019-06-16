@@ -26,11 +26,13 @@ class Menu:
 
     def downloadDB(self):
         LoadDB.downloadDB(self.ipAddr)
-
+    
+    def shutdownRPi(self):
+        os.system("sudo shutdown -h now")
 
 menu = Menu()
 methods = {
-    0: {"name": "Exit"},
+    0: {"function": menu.shutdownRPi,"name": "Exit"},
     1: {"function": menu.offlineMode, "name": "Offline Mode"},
     2: {"function": menu.onlineMode, "name": "Online Mode"},
     3: {"function": menu.downloadDB, "name": "Download Latest DB"},
