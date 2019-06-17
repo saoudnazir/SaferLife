@@ -42,7 +42,6 @@
                 } else {
                     echo "Error occured: ".$query. "<br>" . $conn->error;;
                 }
-                echo "Manh Huy Vo";
             }
         } else {
             echo $contents;

@@ -1,5 +1,5 @@
 
-// Set constraints for the video stream
+/*// Set constraints for the video stream
 var constraints = { video: { facingMode: "environment" }, audio: false };
 // Define constants
 const cameraView = document.querySelector("#camera--view"),
@@ -27,4 +27,4 @@ cameraTrigger.onclick = function() {
     cameraOutput.classList.add("taken");
 };
 // Start the video stream when the window loads
-window.addEventListener("load", cameraStart, false);
+window.addEventListener("load", cameraStart, false);*/

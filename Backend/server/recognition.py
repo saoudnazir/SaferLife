@@ -50,8 +50,8 @@ class Recognition:
                 user_ID.append(id)
 
         process = not process
-        if "Unknown" in face_names:
-            cv2.imwrite("{}/Unknown{}.jpg".format(folder,(current_date,current_time_sec)),frame)
+        if "Unknown" not in face_names:
+            cv2.imwrite("{}/seen{}.jpg".format(folder,(current_date,current_time_sec)),frame)
         for (top, right, bottom, left), name, id in zip(face_locations, face_names,user_ID):
             top *= 4
             right *= 4
