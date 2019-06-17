@@ -1,30 +1,3 @@
-<?php
-	include "connect.php";    
-    session_start();
-    include "authentication-check.php";
-    if(isset($_SESSION["res_ID"]))
-    {
-        $id = $_SESSION["res_ID"];
-        $query = "SELECT p.p_Name, p.p_dob, p.p_address, p.p_Note, p.p_Images, c.c_Name, c.c_level, b.b_Date, b.b_Time, b.b_location FROM blacklist b
-            inner join people p on b.p_ID = p.p_ID
-            inner join crime c on b.c_ID = c.c_ID
-            where b.p_ID = $id";
-        
-        $result = mysqli_query($conn,$query);
-        $data = array();
-        $count = mysqli_num_rows($result);
-        if($count > 0)
-        {
-            while ($row = mysqli_fetch_assoc($result))
-            {
-                $data[] = $row;
-            }          
-        } else {
-            echo "There is nothing match!";
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -131,6 +104,7 @@
                                         
                                     }
                                 });
+                                //window.open('./alert-display-data.php', '_blank');
                             }
                         },
                         error: function (e) {
@@ -150,13 +124,11 @@
             </div>
         </div>
         <div id="div1"></div>
-        <button type="button" id="SaveVideo" style="width: 200px;background-color:white;padding:15px;color:black;position:absolute;bottom: 70px;right:10px;border-radius:5px; border: 1px solid black">Save Video</button>
+        <button type="button" id="SaveVideo" style="width: 200px;background-color:black;padding:15px;color:white;position:absolute;bottom: 70px;right:10px;border-radius:5px; border: 1px solid green">Save Video</button>
                 
         <button type="button" id="LocalDB" style="background-color:green;padding:15px;color:white;position:absolute;bottom: 10px;left:10px;border-radius:5px; border: 1px solid green">Generate Local DB</button>
         <button type="button" id="SessionClear" style="width:200px;background-color:#00ccff;padding:15px;color:white;position:absolute;bottom: 10px;right:10px;border-radius:5px; border: 1px solid #00ccff">Clear Session</button>
-        <img src="http://<?php echo $ip_address?>:8000/video_feed/" style="width:100%; height:100%;position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;z-index:-1;padding:0;" id="main"/>
-        <!-- Reference to your JavaScript file -->
-        <script src="script.js"></script>
+
     </body>
     <footer>
 

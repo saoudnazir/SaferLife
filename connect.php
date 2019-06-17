@@ -10,6 +10,6 @@
 		die ("connection failed: " .$conn->connect_error);
 	} else {
 		//echo "Good connection!";
-		$ip_address = "192.168.1.106";
+		$ip_address = "10.1.5.223";
     }
 ?>
