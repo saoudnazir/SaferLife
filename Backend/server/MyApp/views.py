@@ -126,7 +126,7 @@ def generateDB(request):
     try:
         print("Starting DB generation...")
         g = General()
-        url ="http://192.168.1.106/webandapp/newLocalDB.php"
+        url ="http://192.168.0.27/saferlife/newLocalDB.php"
         jsonURL = urllib.request.urlopen(url)
         data = json.loads(jsonURL.read().decode())
         id=[]
