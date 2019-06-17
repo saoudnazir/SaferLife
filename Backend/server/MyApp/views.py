@@ -24,6 +24,8 @@ import os
 gobFrames = []
 gobID = 0
 allThreads=[]
+#Change your IP address here.......
+ipAddr = ""
 def appendframes(frame):
     global gobFrames
     gobFrames.append(frame)
@@ -43,6 +45,7 @@ def saveVideo(request):
         out.release()
     except:
         print("Some Error")
+
      
 
 isReady = False
@@ -123,10 +126,11 @@ def alert_crime(request):
 
 def generateDB(request):
     message=""
+    global ipAddr
     try:
         print("Starting DB generation...")
         g = General()
-        url ="http://192.168.0.27/saferlife/newLocalDB.php"
+        url ="http://"+ipAddr+"/saferlife/newLocalDB.php"
         jsonURL = urllib.request.urlopen(url)
         data = json.loads(jsonURL.read().decode())
         id=[]

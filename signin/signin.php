@@ -21,11 +21,11 @@
             <form action="signin_backend.php" method="post" class="signin_form">
                 <div class="userdetails_field">
                     <div class="input_icon"><i class="fas fa-user" style="font-size: 20px; margin-right: 5px; color: #404040"></i></div>
-                    <input style ="padding: 5px" type="text" placeholder="Username" name="signin_username" size="28" required>
+                    <input style ="padding: 5px" type="text" placeholder="Username" name="signin_username" size="22" required>
                 </div>
                 <div class="userdetails_field">
                     <div class="input_icon"><i class="fas fa-unlock" style="font-size: 20px; margin-right: 5px; color: #404040"></i></div>
-                    <input style ="padding: 5px" type="password" placeholder="Password" name="signin_password" size="28" required>
+                    <input style ="padding: 5px" type="password" placeholder="Password" name="signin_password" size="22" required>
                 </div>
                 <button id="signin_button" type="submit" value="Sign In">Sign In</button>
             </form>
